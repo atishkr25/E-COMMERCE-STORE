@@ -142,3 +142,37 @@ export const getProductBycategory = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+
+export const toggleFeaturedProduct = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        product.featured = !product.featured;
+        const updatedProduct = await product.save();
+        await updateFeaturedProductsCache();
+        res.json({ message: "Product featured status updated", product: updatedProduct });
+    } catch (error) {
+        console.log('Error in toggleFeaturedProduct', error.message);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
+async function updateFeaturedProductsCache() {
+    try {
+        //lean method is used to convert the mongoose document into a plain javascript object which is more suitable for caching in redis
+        const featuredProducts = await Product.find({ isFeatured: true }).lean();
+        if (redis) {
+            try {
+                await redis.set("featured_products", JSON.stringify(featuredProducts));
+            } catch (error) {
+                console.log("Redis write failed in updateFeaturedProductsCache", error.message);
+            }
+        }
+    } catch (error) {
+        console.log('Error in updateFeaturedProductsCache', error.message);
+    }
+}
