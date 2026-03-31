@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": false,
+    "checkJs": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "."
+  },
+  "include": [
+    "backend/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "frontend"
+  ]
+}

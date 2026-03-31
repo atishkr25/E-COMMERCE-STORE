@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.route.js' ;
 import profileRoutes from './routes/profile.route.js' ;
+import productRoutes from './routes/product.route.js';
 import mongoose from 'mongoose';
 import connectDB from './lib/db.js';
 
@@ -21,6 +22,7 @@ app.use(cookieParser());  //middleware to parse cookies
 //routes
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/products", productRoutes);
 
 //mongodb connection
 connectDB();

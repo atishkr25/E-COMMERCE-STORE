@@ -15,6 +15,7 @@ Thumbs.db
 # Environment variables and sensitive files
 .env
 .env.*
+.envrc
 
 # Database files
 *.sqlite
@@ -45,6 +46,24 @@ coverage/
 .env.test.local
 .env.production.local
 
+# Secret and certificate files
+*.pem
+*.key
+*.p8
+*.p12
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+
+# Local secret/config snapshots
+secrets.*
+*.secret
+
+# Local binaries
+*.bin
+
 # Redis dump
 *.rdb
 
@@ -61,3 +80,6 @@ frontend/build/
 # Ignore backend build (if any)
 backend/dist/
 backend/build/
+
+#cph 
+.cph/
