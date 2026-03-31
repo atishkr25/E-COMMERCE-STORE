@@ -19,6 +19,10 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());  //middleware to parse incoming JSON data
 app.use(cookieParser());  //middleware to parse cookies
 
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "Backend is running on port 5001" });
+});
+
 //routes
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
